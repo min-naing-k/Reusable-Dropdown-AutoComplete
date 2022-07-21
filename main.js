@@ -5,7 +5,6 @@ const searchInput = document.querySelector('#search-input');
 let todos;
 let filterTodos = [];
 let indexToSelect = 0;
-todos = await getTodos();
 
 document.addEventListener('mouseover', e => {
   if (e.target.matches('.list')) {
@@ -67,7 +66,11 @@ document.addEventListener('keydown', e => {
   }
 });
 
-const handleSearch = debounce(value => {
+const handleSearch = debounce(async (value) => {
+  if(!todos) {
+    todos = await getTodos();
+  }
+
   search(value);
 }, 250);
 
